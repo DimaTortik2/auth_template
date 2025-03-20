@@ -1,0 +1,3 @@
+auth_back/node_modules
+.env
+auth_front/src/shared/model/constants.ts
