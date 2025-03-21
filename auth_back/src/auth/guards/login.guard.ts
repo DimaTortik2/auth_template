@@ -1,7 +1,9 @@
 import {
+  BadRequestException,
   CanActivate,
   ExecutionContext,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthDto } from '../dto';
@@ -12,11 +14,14 @@ import { comparePasswords } from '../helpers/password.helper';
 export class LoginGuard implements CanActivate {
   constructor(private readonly userService: UserService) {}
 
+  private readonly logger = new Logger(LoginGuard.name);
+
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const dto = ctx.switchToHttp().getRequest().body as AuthDto;
     const user = await this.userService.findOne({ email: dto.email });
+    this.logger.log(user);
     if (!user) {
-      throw new UnauthorizedException('Неверная почта или пароль');
+      throw new BadRequestException('Неверная почта или пароль');
     }
 
     if (user.password) {

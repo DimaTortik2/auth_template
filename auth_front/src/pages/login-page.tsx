@@ -19,6 +19,7 @@ export function LoginPage() {
 			showNotification({ message: 'загрузка...', type: 'loading' })
 		}
 		if (loginIsSuccess) {
+			
 			navigate('/me')
 			showNotification({ message: 'успешно', type: 'success' })
 
@@ -28,6 +29,7 @@ export function LoginPage() {
 		}
 		if (loginIsError) {
 			const axiosError = error as AxiosError
+			console.log('error = ', error?.message)
 			const errorData = axiosError.response?.data as IErrorData
 			const errorMessage = errorData.message
 			showNotification({ message: errorMessage, type: 'error' })

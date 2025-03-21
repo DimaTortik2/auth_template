@@ -9,7 +9,7 @@ export const authService = {
 	axios: instance,
 
 	async login(data: ILogin): Promise<void> {
-		return await this.axios.post('auth/login', data).then(({ data }) => data)
+		return await this.axios.post('auth/login', data)
 	},
 
 	async register(data: IRegister): Promise<IRegisterResponse> {

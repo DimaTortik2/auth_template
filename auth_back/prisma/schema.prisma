@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,34 +7,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
+model User {
   id Int @id @default(autoincrement())
 
-  email String @unique
-  password String? 
-  provider Provider? 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  token Token[]
-  roles Role[]
+  email     String    @unique
+  password  String?
+  provider  Provider?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  token     Token[]
+  roles     Role[]
+
   @@map("users")
 }
 
-model Token{
-  token String @unique
-  exp DateTime
-  userId Int @map("user_id")
-  userAget String @map("user_agent")
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Token {
+  token    String   @unique
+  exp      DateTime
+  userId   Int      @map("user_id")
+  userAget String   @map("user_agent")
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@map("tokens")
 }
 
-enum Role{
+enum Role {
   ADMIN
   USER
 }
 
-enum Provider{
+enum Provider {
   GOOGLE
   YANDEX
 }

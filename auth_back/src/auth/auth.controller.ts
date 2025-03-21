@@ -58,7 +58,6 @@ export class AuthController {
     @UserAgent() agent: string,
   ) {
     const tokens = await this.authService.login(dto, agent);
-    
 
     if (!tokens) {
       throw new BadRequestException(
@@ -127,5 +126,4 @@ export class AuthController {
         error: (err) => res.status(400).json({ message: err.message }),
       });
   }
-
 }

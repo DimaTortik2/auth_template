@@ -607,21 +607,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var LoginGuard_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LoginGuard = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const user_service_1 = __webpack_require__(/*! src/user/user.service */ "./src/user/user.service.ts");
 const password_helper_1 = __webpack_require__(/*! ../helpers/password.helper */ "./src/auth/helpers/password.helper.ts");
-let LoginGuard = class LoginGuard {
+let LoginGuard = LoginGuard_1 = class LoginGuard {
     constructor(userService) {
         this.userService = userService;
+        this.logger = new common_1.Logger(LoginGuard_1.name);
     }
     async canActivate(ctx) {
         const dto = ctx.switchToHttp().getRequest().body;
         const user = await this.userService.findOne({ email: dto.email });
+        this.logger.log(user);
         if (!user) {
-            throw new common_1.UnauthorizedException('Неверная почта или пароль');
+            throw new common_1.BadRequestException('Неверная почта или пароль');
         }
         if (user.password) {
             return (0, password_helper_1.comparePasswords)(dto.password, user.password);
@@ -630,7 +633,7 @@ let LoginGuard = class LoginGuard {
     }
 };
 exports.LoginGuard = LoginGuard;
-exports.LoginGuard = LoginGuard = __decorate([
+exports.LoginGuard = LoginGuard = LoginGuard_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object])
 ], LoginGuard);
@@ -1135,6 +1138,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const decorators_1 = __webpack_require__(/*! lib/lib/decorators */ "./libs/lib/src/decorators/index.ts");
 const token_service_1 = __webpack_require__(/*! ./token.service */ "./src/token/token.service.ts");
 const express_1 = __webpack_require__(/*! express */ "express");
+const guards_1 = __webpack_require__(/*! ./guards */ "./src/token/guards/index.ts");
 let TokenController = class TokenController {
     constructor(tokenService) {
         this.tokenService = tokenService;
@@ -1152,6 +1156,7 @@ let TokenController = class TokenController {
 };
 exports.TokenController = TokenController;
 __decorate([
+    (0, common_1.UseGuards)(guards_1.RefreshTokenGuard),
     (0, common_1.Get)('refresh'),
     __param(0, (0, decorators_1.Cookie)('refreshtoken')),
     __param(1, (0, common_1.Res)()),
