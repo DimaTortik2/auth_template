@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { MyButton } from '../../shared/buttons'
 import { ILogin, LoginInput, LoginSchema } from '../../features/auth'
 import { AuthBackLink, AuthHeader } from '../../shared/auth'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { CONSTANTS } from '../../shared/model/constants'
 import GoogleIcon from '@mui/icons-material/Google'
 
@@ -16,7 +16,7 @@ export function LoginForm({ onSubmit }: IProps) {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<ILogin>({
-		resolver: yupResolver(LoginSchema),
+		resolver: zodResolver(LoginSchema),
 	})
 
 	const handleGoogleAuthClick = () => {

@@ -18,14 +18,16 @@ export function MyNotification({ className }: IProps) {
 	}
 
 	return (
-		<div
-			className={clsx(
-				'py-[15px] px-[50px] text-xl text-white rounded-tl-2xl absolute bottom-0 right-0',
-				styles[notificationType],
-				className
-			)}
-		>
-			{notificationText}
+		<div className='w-full absolute top-0 flex justify-center'>
+			<div
+				className={clsx(
+					styles[notificationType],
+					'w-full min-[400px]:w-[400px] py-[15px] px-[50px] text-xl text-white rounded-b-2xl text-center opacity-85',
+					className
+				)}
+			>
+				{notificationText}
+			</div>
 		</div>
 	)
 }

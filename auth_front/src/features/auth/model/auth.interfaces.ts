@@ -1,10 +1,9 @@
-import * as yup from 'yup'
+import { z } from 'zod'
 import { LoginSchema, RegisterSchema } from './schemas'
 
-export type ILogin = yup.InferType<typeof LoginSchema>
-export type IRegisterForm = yup.InferType<typeof RegisterSchema>
+export type ILogin = z.infer<typeof LoginSchema>
+export type IRegisterForm = z.infer<typeof RegisterSchema>
 export type IRegister = Pick<IRegisterForm, 'email' | 'password'>
-
 
 export interface IRegisterResponse {
 	id: number

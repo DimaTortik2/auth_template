@@ -7,7 +7,7 @@ import {
 	IRegisterForm,
 } from '../../features/auth'
 import { AuthBackLink, AuthHeader } from '../../shared/auth'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { CONSTANTS } from '../../shared/model/constants'
 import GoogleIcon from '@mui/icons-material/Google'
 
@@ -21,7 +21,7 @@ export function RegisterForm({ onSubmit }: IProps) {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<IRegisterForm>({
-		resolver: yupResolver(RegisterSchema),
+		resolver: zodResolver(RegisterSchema),
 		mode: 'onChange',
 	})
 

@@ -39,7 +39,7 @@ export function LoginPage() {
 	}
 
 	return (
-		<div className='text-white backdrop-blur-3xl bg-[rgba(52,116,132,0.4)] w-full min-[400px]:w-[400px] sm:w-[400px] h-3/4 rounded-2xl border-solid border-4 border-cyan-500'>
+		<div className='text-white backdrop-blur-3xl bg-[rgba(52,116,132,0.4)] w-full min-[400px]:w-[400px] h-3/4 rounded-2xl border-solid border-4 border-cyan-500'>
 			<LoginForm onSubmit={onSubmit} />
 		</div>
 	)
